@@ -28,6 +28,7 @@ const Login = () => {
         try {
             const res = await signInWithEmailAndPassword(formData.email, formData.password)
             console.log(res)
+            sessionStorage.setItem('user', true)
             setFormData({
                 email: '',
                 password: ''
