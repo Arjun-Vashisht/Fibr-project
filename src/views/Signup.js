@@ -5,6 +5,7 @@ import styles from '../styles/signup.module.css'
 import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
 import { auth } from '../../firebase'
 import { useRouter } from 'next/navigation'
+import '../app/globals.css'
 
 const Signup = () => {
     const router = useRouter()

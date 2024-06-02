@@ -6,8 +6,7 @@ import { getDatabase, ref, get, remove } from "firebase/database"
 import { useRouter } from 'next/navigation'
 import styles from '../styles/dashboard.module.css'
 
-
-const Dashboard = () => {
+const Draft = () => {
     const [data, setData] = useState()
     const router = useRouter()
 
@@ -50,21 +49,20 @@ const Dashboard = () => {
 
     return (
         !data ? <div>Loading...</div> : 
-        <div>
+        <div style={{padding:"6rem"}}>
             <div>
                 <main className={styles.main}>
                     <div className={styles.cardContainer}>
-                    {Object.entries(data).filter(([key, item]) => item.status === 'publish').map(([key, item], index)=>{
+                    {Object.entries(data).filter(([key, item]) => item.status === 'draft').map(([key, item], index)=>{
                         return(
                                 <div key={index} className={styles.card}>
-                                    <div onClick={()=> router.push(`/${key}`)}>
+                                    <div onClick={()=> router.push(`/${item.id}`)}>
                                         <div className={styles.cardImage}>
                                             <img src={item.imageUrl} alt="Landing Page 1"/>
                                         </div>
                                         <div className={styles.cardContent}>
                                             <h2 className={styles.cardTitle}>{item.title}</h2>
                                             <p className={styles.cardDescription}>{item.description}</p>
-                                            <p>Views: {item.views}</p>
                                         </div>
                                     </div>
                                     <div className={styles.cardFooter}>
@@ -81,4 +79,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Draft

@@ -12,6 +12,11 @@ const Create = () => {
     const [cta, setCta] = useState("");
     const [link, setLink] = useState("");
     const [image, setImage] = useState(null);
+    const [insta, setInsta] = useState();
+    const [twitter, setTwitter] = useState();
+    const [madeBy, setMadeBy] = useState();
+    const [status, setStatus] = useState('draft');
+    const [views, setViews] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,12 +31,17 @@ const Create = () => {
                 const imageUrl = await getDownloadURL(imgRef);
 
                 await set(newDocRef, {
+                    id: id,
                     title: title,
                     description: description,
+                    imageUrl: imageUrl,
                     cta: cta,
                     link: link,
-                    imageUrl: imageUrl,
-                    id: id
+                    insta: insta,
+                    twitter: twitter,
+                    madeBy: madeBy,
+                    status: status,
+                    views: views
                 });
 
                 alert('Saved successfully!');
@@ -67,6 +77,15 @@ const Create = () => {
                     required
                 ></textarea>
                 <br />
+                <label htmlFor="image" className={styles.label}>Image</label>
+                <input
+                    type="file"
+                    id="image"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className={styles.fileInput}
+                    required
+                />
+                <br />
                 <h1 className={styles.header}>Header</h1>
                 <label htmlFor="cta" className={styles.label}>CTA text:</label>
                 <input
@@ -88,16 +107,60 @@ const Create = () => {
                     required
                 />
                 <br />
-                <label htmlFor="image" className={styles.label}>Image</label>
+                
+                <h1 className={styles.footer}>Footer</h1>
+                <label htmlFor="insta" className={styles.label}>Instagram Link:</label>
                 <input
-                    type="file"
-                    id="image"
-                    onChange={(e) => setImage(e.target.files[0])}
-                    className={styles.fileInput}
+                    type="text"
+                    id="insta"
+                    value={insta}
+                    onChange={(e) => setInsta(e.target.value)}
+                    className={styles.input}
                     required
                 />
                 <br />
-                <h1 className={styles.footer}>Footer</h1>
+                <label htmlFor="twitter" className={styles.label}>Twitter Link:</label>
+                <input
+                    type="text"
+                    id="twitter"
+                    value={twitter}
+                    onChange={(e) => setTwitter(e.target.value)}
+                    className={styles.input}
+                    required
+                />
+                <br />
+                <label htmlFor="madeBy" className={styles.label}>Made by:</label>
+                <input
+                    type="text"
+                    id="madeBy"
+                    value={madeBy}
+                    onChange={(e) => setMadeBy(e.target.value)}
+                    className={styles.input}
+                    required
+                />
+                <br />
+                <div className={styles.radioGroup}>
+                    <label>
+                        <input
+                            type="radio"
+                            value="draft"
+                            checked={status === 'draft'}
+                            onChange={(e) => setStatus('draft')}
+                        />
+                        Draft
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="publish"
+                            checked={status === 'publish'}
+                            onChange={(e) => setStatus('publish')}
+                        />
+                        Publish
+                    </label>
+                </div>
+                <br />
+
                 <button type="submit" className={styles.button}>Submit</button>
             </form>
         </div>
