@@ -1,9 +1,9 @@
-import Live from '@/views/Live'
+import Update from '@/views/Update'
 import React from 'react'
 
 const Page = ({ params }) => {
   return (
-    <Live id={params.id}/>
+    <Update id={params.id}/>
   )
 }
 

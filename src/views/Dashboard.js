@@ -44,6 +44,10 @@ const Dashboard = () => {
         }
     }
 
+    const updateHandler = (landingId) =>{
+        router.push(`/update/${landingId}`)
+    }
+
     return (
         !data ? <div>Loading...</div> : 
         <div>
@@ -53,15 +57,17 @@ const Dashboard = () => {
                     {Object.values(data).map((item, index)=>{
                         return(
                                 <div key={index} className={styles.card}>
-                                    <div className={styles.cardImage}>
-                                        <img src={item.imageUrl} alt="Landing Page 1"/>
-                                    </div>
-                                    <div className={styles.cardContent}>
-                                        <h2 className={styles.cardTitle}>{item.title}</h2>
-                                        <p className={styles.cardDescription}>{item.description}</p>
+                                    <div onClick={()=> router.push(`/${item.id}`)}>
+                                        <div className={styles.cardImage}>
+                                            <img src={item.imageUrl} alt="Landing Page 1"/>
+                                        </div>
+                                        <div className={styles.cardContent}>
+                                            <h2 className={styles.cardTitle}>{item.title}</h2>
+                                            <p className={styles.cardDescription}>{item.description}</p>
+                                        </div>
                                     </div>
                                     <div className={styles.cardFooter}>
-                                        <button className={styles.btn}>Update</button>
+                                        <button onClick={()=>updateHandler(item.id)} className={styles.btn}>Update</button>
                                         <button onClick={()=>deleteHandler(item.id)} className={styles.dlBtn}>Delete</button>
                                     </div>
                                 </div>
