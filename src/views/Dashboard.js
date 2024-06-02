@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from 'react'
 import app from "../../firebase"
 import { getDatabase, ref, get } from "firebase/database"
+import { useRouter } from 'next/navigation'
 
 
 const Dashboard = () => {
     const [data, setData] = useState()
+    const router = useRouter()
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -28,7 +30,7 @@ const Dashboard = () => {
         !data ? <div>Loading...</div> : <div>
             {Object.values(data).map((item, index)=>{
                 return (
-                    <div key={index}>
+                    <div key={index} onClick={() => router.push(`/${item.id}`)}>
                         <div>{item.title}</div>
                         <div>{item.description}</div>
                     </div>
