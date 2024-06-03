@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, get, set } from 'firebase/database'
 import React, { useEffect, useState } from 'react'
-import { app, db, imageDb } from "../../firebase"
+import { app, imageDb } from "../../firebase"
 import styles from '../styles/create.module.css'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useRouter } from 'next/navigation'
@@ -13,9 +13,9 @@ const Update = ({ id }) => {
     const [cta, setCta] = useState("");
     const [link, setLink] = useState("");
     const [image, setImage] = useState(null);
-    const [insta, setInsta] = useState();
-    const [twitter, setTwitter] = useState();
-    const [madeBy, setMadeBy] = useState();
+    const [insta, setInsta] = useState("");
+    const [twitter, setTwitter] = useState("");
+    const [madeBy, setMadeBy] = useState("");
     const [getData, setGetData] = useState()
     const [status, setStatus] = useState('draft');
     const [views, setViews] = useState();

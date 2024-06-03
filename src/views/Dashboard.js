@@ -5,6 +5,7 @@ import { app } from '../../firebase'
 import { getDatabase, ref, get, remove } from "firebase/database"
 import { useRouter } from 'next/navigation'
 import styles from '../styles/dashboard.module.css'
+import Link from 'next/link'
 
 
 const Dashboard = () => {
@@ -48,6 +49,7 @@ const Dashboard = () => {
         router.push(`/update/${landingId}`)
     }
 
+
     return (
         data == undefined ? (data === null ? <div>No Landing Page</div> : <div>Loading...</div>) :
         <div>
@@ -57,19 +59,21 @@ const Dashboard = () => {
                     {Object.entries(data).filter(([key, item]) => item.status === 'publish').map(([key, item], index)=>{
                         return(
                             <div key={index} className={styles.card}>
-                                <div onClick={()=> router.push(`/${key}`)}>
-                                    <div className={styles.cardImage}>
-                                        <img src={item.imageUrl} alt="Landing Page 1"/>
-                                    </div>
-                                    <div className={styles.cardContent}>
-                                        <h2 className={styles.cardTitle}>{item.title}</h2>
-                                        <p className={styles.cardDescription}>{item.description}</p>
-                                        <div style={{display:"flex", justifyContent:"space-between"}}>
-                                            <p>Views: {item.views}</p>
-                                            <p>Rating: {(item.rating/item.numberRating).toFixed(1)}</p>
+                                <Link href={`/${key}`}>
+                                    <div>
+                                        <div className={styles.cardImage}>
+                                            <img src={item.imageUrl} alt="Landing Page 1"/>
+                                        </div>
+                                        <div className={styles.cardContent}>
+                                            <h2 className={styles.cardTitle}>{item.title}</h2>
+                                            <p className={styles.cardDescription}>{item.description}</p>
+                                            <div style={{display:"flex", justifyContent:"space-between"}}>
+                                                <p>Views: {item.views}</p>
+                                                <p>Rating: {item.rating == 0 ? 0 : (item.rating/item.numberRating).toFixed(1)}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                                 <div className={styles.cardFooter}>
                                     <button onClick={()=>updateHandler(key)} className={styles.btn}>Update</button>
                                     <button onClick={()=>deleteHandler(key)} className={styles.dlBtn}>Delete</button>

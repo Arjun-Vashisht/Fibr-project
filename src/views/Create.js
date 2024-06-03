@@ -12,9 +12,9 @@ const Create = () => {
     const [cta, setCta] = useState("");
     const [link, setLink] = useState("");
     const [image, setImage] = useState(null);
-    const [insta, setInsta] = useState();
-    const [twitter, setTwitter] = useState();
-    const [madeBy, setMadeBy] = useState();
+    const [insta, setInsta] = useState("");
+    const [twitter, setTwitter] = useState("");
+    const [madeBy, setMadeBy] = useState("");
     const [status, setStatus] = useState('draft');
     const [views, setViews] = useState(0);
     const [rating, setRating] = useState(0)

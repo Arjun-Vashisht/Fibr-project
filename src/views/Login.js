@@ -5,7 +5,7 @@ import styles from '../styles/login.module.css'
 import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth'
 import { auth } from '../../firebase'
 import { useRouter } from 'next/navigation'
-import '../app/(root)/globals.css'
+import Link from 'next/link'
 
 const Login = () => {
     const router = useRouter()
@@ -70,7 +70,7 @@ const Login = () => {
             <button type="submit" className={styles.button}>Login</button>
         </form>
         <p className={styles.text}>
-            Don't have an account? <a href="/sign-up">Sign Up</a>
+            Don't have an account? <Link href="/sign-up">Sign Up</Link>
         </p>
         </div>
     </div>

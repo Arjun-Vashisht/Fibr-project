@@ -5,7 +5,7 @@ import styles from '../styles/signup.module.css'
 import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
 import { auth } from '../../firebase'
 import { useRouter } from 'next/navigation'
-import '../app/(root)/globals.css'
+import Link from 'next/link'
 
 const Signup = () => {
     const router = useRouter()
@@ -82,7 +82,7 @@ const Signup = () => {
             <button type="submit" className={styles.button}>Sign Up</button>
         </form>
         <p className={styles.text}>
-            Already have an account? <a href="/login">Login</a>
+            Already have an account? <Link href="/login">Login</Link>
         </p>
         </div>
     </div>

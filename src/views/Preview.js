@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import '../app/(root)/globals.css'
 import Header from '@/components/live/Header'
 import Footer from '@/components/live/Footer'
 import { useSearchParams } from 'next/navigation';
