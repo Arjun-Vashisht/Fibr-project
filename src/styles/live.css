@@ -46,12 +46,21 @@
     width: 100%;
     bottom: 0;
   }
+
+  .social-icons {
+    display: flex;
+    justify-content: space-around;
+    width: 10%;
+  }
   
   .social-icons a {
     color: #fff;
     font-size: 24px;
     margin-right: 10px;
     text-decoration: none;
+    width: 20px;
+    display: flex;
+    justify-content: space-between;
   }
   
   .made-by {

@@ -32,12 +32,12 @@ const Dashboard = () => {
             const db = getDatabase(app);
             const dbRef = ref(db, "nature/landing/" + landingId);
             await remove(dbRef);
-            console.log("Item deleted successfully.");
             setData(prevData => {
                 const updatedData = { ...prevData };
                 delete updatedData[landingId];
                 return updatedData;
             });
+            alert("Item deleted successfully.");
         } catch (error) {
             console.error("Error deleting item:", error);
             setError(error);
@@ -49,29 +49,32 @@ const Dashboard = () => {
     }
 
     return (
-        !data ? <div>Loading...</div> : 
+        data == undefined ? (data === null ? <div>No Landing Page</div> : <div>Loading...</div>) :
         <div>
             <div>
                 <main className={styles.main}>
                     <div className={styles.cardContainer}>
                     {Object.entries(data).filter(([key, item]) => item.status === 'publish').map(([key, item], index)=>{
                         return(
-                                <div key={index} className={styles.card}>
-                                    <div onClick={()=> router.push(`/${key}`)}>
-                                        <div className={styles.cardImage}>
-                                            <img src={item.imageUrl} alt="Landing Page 1"/>
-                                        </div>
-                                        <div className={styles.cardContent}>
-                                            <h2 className={styles.cardTitle}>{item.title}</h2>
-                                            <p className={styles.cardDescription}>{item.description}</p>
-                                            <p>Views: {item.views}</p>
-                                        </div>
+                            <div key={index} className={styles.card}>
+                                <div onClick={()=> router.push(`/${key}`)}>
+                                    <div className={styles.cardImage}>
+                                        <img src={item.imageUrl} alt="Landing Page 1"/>
                                     </div>
-                                    <div className={styles.cardFooter}>
-                                        <button onClick={()=>updateHandler(key)} className={styles.btn}>Update</button>
-                                        <button onClick={()=>deleteHandler(key)} className={styles.dlBtn}>Delete</button>
+                                    <div className={styles.cardContent}>
+                                        <h2 className={styles.cardTitle}>{item.title}</h2>
+                                        <p className={styles.cardDescription}>{item.description}</p>
+                                        <div style={{display:"flex", justifyContent:"space-between"}}>
+                                            <p>Views: {item.views}</p>
+                                            <p>Rating: {(item.rating/item.numberRating).toFixed(1)}</p>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className={styles.cardFooter}>
+                                    <button onClick={()=>updateHandler(key)} className={styles.btn}>Update</button>
+                                    <button onClick={()=>deleteHandler(key)} className={styles.dlBtn}>Delete</button>
+                                </div>
+                            </div>
                         )
                     })}
                     </div>

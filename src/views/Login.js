@@ -5,7 +5,7 @@ import styles from '../styles/login.module.css'
 import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth'
 import { auth } from '../../firebase'
 import { useRouter } from 'next/navigation'
-import '../app/globals.css'
+import '../app/(root)/globals.css'
 
 const Login = () => {
     const router = useRouter()
@@ -28,7 +28,6 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await signInWithEmailAndPassword(formData.email, formData.password)
-            console.log(res)
             sessionStorage.setItem('user', true)
             setFormData({
                 email: '',

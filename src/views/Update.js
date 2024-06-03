@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { app, db, imageDb } from "../../firebase"
 import styles from '../styles/create.module.css'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useRouter } from 'next/navigation'
 
 const Update = ({ id }) => {
     const [title, setTitle] = useState("");
@@ -18,6 +19,10 @@ const Update = ({ id }) => {
     const [getData, setGetData] = useState()
     const [status, setStatus] = useState('draft');
     const [views, setViews] = useState();
+    const [rating, setRating] = useState();
+    const [numberRating, setNumberRating] = useState();
+
+    const router = useRouter()
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -36,6 +41,8 @@ const Update = ({ id }) => {
                 setMadeBy(snapshot.val().madeBy || "");
                 setViews(snapshot.val().views || 0);
                 setStatus(snapshot.val().status || "draft");
+                setRating(snapshot.val().rating || 0)
+                setNumberRating(snapshot.val().numberRating || 0)
             }else{
                 console.error('error')
             }
@@ -44,18 +51,40 @@ const Update = ({ id }) => {
         fetchData()
     },[id])
 
-    const handleSubmit = async (e) =>{
+    const handlePreview = async (e) => {
         e.preventDefault()
-        const db = getDatabase(app)
-        const updateRef = ref(db, "nature/landing/"+id);
         let imageUrl
-        console.log(image.onload)
         if(image.onload){
             const imgRef = storageRef(imageDb, `files/${id}`);
             await uploadBytes(imgRef, image);
             imageUrl = await getDownloadURL(imgRef);
         }else{
-            console.log(getData.imageUrl)
+            imageUrl = getData.imageUrl
+        }
+        const data = {
+            title: title,
+            description: description,
+            imageUrl: imageUrl,
+            cta: cta,
+            link: link,
+            insta: insta,
+            twitter: twitter,
+            madeBy: madeBy
+        }
+        const queryString = new URLSearchParams(data).toString();
+        router.push(`/preview/${id}?${queryString}`);
+    }
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault()
+        const db = getDatabase(app)
+        const updateRef = ref(db, "nature/landing/"+id);
+        let imageUrl
+        if(image.onload){
+            const imgRef = storageRef(imageDb, `files/${id}`);
+            await uploadBytes(imgRef, image);
+            imageUrl = await getDownloadURL(imgRef);
+        }else{
             imageUrl = getData.imageUrl
         }
         set(updateRef, {
@@ -69,7 +98,8 @@ const Update = ({ id }) => {
             twitter: twitter,
             madeBy: madeBy,
             status: status,
-            views: views
+            views: views,
+            rating: rating
         }).then(()=>{
             alert('saved')
         }).catch((error)=>{
@@ -183,8 +213,10 @@ const Update = ({ id }) => {
                     </label>
                 </div>
                 <br />
-
-                <button type="submit" className={styles.button}>Submit</button>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <button type="submit" className={styles.button}>Submit</button>
+                    <button className={styles.button} onClick={handlePreview}>Preview</button>
+                </div>
             </form>
         </div>
         

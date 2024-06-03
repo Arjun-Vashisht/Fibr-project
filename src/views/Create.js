@@ -17,11 +17,11 @@ const Create = () => {
     const [madeBy, setMadeBy] = useState();
     const [status, setStatus] = useState('draft');
     const [views, setViews] = useState(0);
+    const [rating, setRating] = useState(0)
+    const [numberRating, setNumberRating] = useState(0)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(title)
-        console.log(description)
         const id = Date.now()
         const newDocRef = push(ref(db, "nature/landing"))
         const imgRef = storageRef(imageDb, `files/${id}`);
@@ -41,7 +41,9 @@ const Create = () => {
                     twitter: twitter,
                     madeBy: madeBy,
                     status: status,
-                    views: views
+                    views: views,
+                    rating: rating,
+                    numberRating: numberRating
                 });
 
                 alert('Saved successfully!');
@@ -160,8 +162,9 @@ const Create = () => {
                     </label>
                 </div>
                 <br />
-
-                <button type="submit" className={styles.button}>Submit</button>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <button type="submit" className={styles.button}>Submit</button>
+                </div>
             </form>
         </div>
     )

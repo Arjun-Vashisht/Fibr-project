@@ -31,12 +31,12 @@ const Draft = () => {
             const db = getDatabase(app);
             const dbRef = ref(db, "nature/landing/" + landingId);
             await remove(dbRef);
-            console.log("Item deleted successfully.");
             setData(prevData => {
                 const updatedData = { ...prevData };
                 delete updatedData[landingId];
                 return updatedData;
             });
+            alert("Item deleted successfully.");
         } catch (error) {
             console.error("Error deleting item:", error);
             setError(error);
@@ -48,7 +48,7 @@ const Draft = () => {
     }
 
     return (
-        !data ? <div>Loading...</div> : 
+        data == undefined ? (data === null ? <div>No Landing Page</div> : <div>Loading...</div>) :
         <div style={{padding:"6rem"}}>
             <div>
                 <main className={styles.main}>
