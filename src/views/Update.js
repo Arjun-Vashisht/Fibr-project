@@ -21,6 +21,7 @@ const Update = ({ id }) => {
     const [views, setViews] = useState();
     const [rating, setRating] = useState();
     const [numberRating, setNumberRating] = useState();
+    const [text, setText] = useState('')
 
     const router = useRouter()
 
@@ -43,6 +44,7 @@ const Update = ({ id }) => {
                 setStatus(snapshot.val().status || "draft");
                 setRating(snapshot.val().rating || 0)
                 setNumberRating(snapshot.val().numberRating || 0)
+                setText(snapshot.val().text || '')
             }else{
                 console.error('error')
             }
@@ -64,6 +66,7 @@ const Update = ({ id }) => {
         const data = {
             title: title,
             description: description,
+            text: text,
             imageUrl: imageUrl,
             cta: cta,
             link: link,
@@ -91,6 +94,7 @@ const Update = ({ id }) => {
             id: id,
             title: title,
             description: description,
+            text: text,
             imageUrl: imageUrl,
             cta: cta,
             link: link,
@@ -127,6 +131,15 @@ const Update = ({ id }) => {
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    className={styles.textarea}
+                    required
+                ></textarea>
+                <br />
+                <label htmlFor="description" className={styles.label}>Text:</label>
+                <textarea
+                    id="text"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     className={styles.textarea}
                     required
                 ></textarea>

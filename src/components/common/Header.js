@@ -10,7 +10,9 @@ const Header = () => {
     const router = useRouter()
     const handleLogout = () => {
         signOut(auth)
-        sessionStorage.removeItem('user')
+        if(typeof window !== "undefined"){
+            sessionStorage.removeItem('user')
+        }
     }
 
     const handleCreate = () => {

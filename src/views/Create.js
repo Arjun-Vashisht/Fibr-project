@@ -18,6 +18,7 @@ const Create = () => {
     const [status, setStatus] = useState('draft');
     const [views, setViews] = useState(0);
     const [rating, setRating] = useState(0)
+    const [text, setText] = useState("")
     const [numberRating, setNumberRating] = useState(0)
 
     const handleSubmit = async (e) => {
@@ -34,6 +35,7 @@ const Create = () => {
                     id: id,
                     title: title,
                     description: description,
+                    text: text,
                     imageUrl: imageUrl,
                     cta: cta,
                     link: link,
@@ -75,6 +77,15 @@ const Create = () => {
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    className={styles.textarea}
+                    required
+                ></textarea>
+                <br />
+                <label htmlFor="description" className={styles.label}>Text:</label>
+                <textarea
+                    id="text"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     className={styles.textarea}
                     required
                 ></textarea>

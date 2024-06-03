@@ -75,6 +75,8 @@ const Live = ({ id }) => {
               </div>
               <br />
               <div style={{width:"70%", fontSize:"large", padding: "30px 0", textAlign:"center"}}>{data.description}</div>
+              <br />
+              <div style={{width:"70%", fontSize:"large", padding: "30px 0", textAlign:"center"}}>{data.text}</div>
             </div>
             <br />
             <Footer insta={data.insta} twitter={data.twitter} madeBy={data.madeBy}/>

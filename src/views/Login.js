@@ -28,7 +28,9 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await signInWithEmailAndPassword(formData.email, formData.password)
-            sessionStorage.setItem('user', true)
+            if(typeof window !== "undefined"){
+                sessionStorage.setItem('user', true)
+            }
             setFormData({
                 email: '',
                 password: ''
